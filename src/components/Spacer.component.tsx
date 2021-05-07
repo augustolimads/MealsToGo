@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 interface SpacerProps {
   size?: number;
   position?: "horizontal" | "vertical";
+  children?: JSX.Element;
 }
 
 const SpacerHorizontal = styled.View<SpacerProps>`
@@ -14,10 +15,10 @@ const SpacerVertical = styled.View<SpacerProps>`
   margin: ${(props) => props.theme.space[props.size || 0]} 0;
 `;
 
-export default function Spacer({ size, position }: SpacerProps) {
+export default function Spacer({ size, position, children }: SpacerProps) {
   if (position === "vertical") {
-    return <SpacerVertical size={size} />;
+    return <SpacerVertical size={size}>{children}</SpacerVertical>;
   } else {
-    return <SpacerHorizontal size={size} />;
+    return <SpacerHorizontal size={size}>{children}</SpacerHorizontal>;
   }
 }

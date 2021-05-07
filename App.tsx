@@ -1,6 +1,5 @@
 import React from "react";
 import { StatusBar } from "react-native";
-import { RestaurantScreen } from "./src/features/restaurants/screens/Restaurant.screen";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
 import AppLoading from "expo-app-loading";
@@ -9,8 +8,12 @@ import {
   Oswald_400Regular,
 } from "@expo-google-fonts/oswald";
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
+import { Routes } from "./src/routes";
+import { restaurantsRequest } from "./src/services/restaurants/restaurants.service";
+import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
 
 export default function App() {
+  restaurantsRequest();
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular,
   });
@@ -26,7 +29,9 @@ export default function App() {
     <>
       <StatusBar />
       <ThemeProvider theme={theme}>
-        <RestaurantScreen />
+        <RestaurantsContextProvider>
+          <Routes />
+        </RestaurantsContextProvider>
       </ThemeProvider>
     </>
   );

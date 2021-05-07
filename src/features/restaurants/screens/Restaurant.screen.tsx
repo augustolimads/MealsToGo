@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { SafeAreaView } from "react-native";
+import React, { useState, useContext } from "react";
+import { FlatList } from "react-native";
 import styled from "styled-components/native";
 import { Searchbar } from "react-native-paper";
-import { RestaurantInfoCard } from "../components/RestaurantInfoCard.component";
 
-const SafeArea = styled(SafeAreaView)`
-  flex: 1;
-  width: 100%;
-`;
+import { RestaurantInfoCard } from "../components/RestaurantInfoCard.component";
+import Spacer from "../../../components/Spacer.component";
+import { SafeArea } from "../../../components/SafeArea.component";
+import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 
 const SearchContainer = styled.View`
   background-color: white;
   padding: 16px;
 `;
 
-const RestaurantListContainer = styled.View`
-  flex: 1;
-  background-color: white;
-  padding: 16px;
-`;
+const RestaurantList = styled(FlatList).attrs({
+  contentContainerStyle: {
+    padding: 16,
+  },
+})``;
 
 export function RestaurantScreen() {
   const [search, setSearch] = useState("");
+  const { restaurants, isLoading, error } = useContext(RestaurantsContext);
 
   return (
     <SafeArea>
@@ -32,17 +32,15 @@ export function RestaurantScreen() {
           onChangeText={setSearch}
         />
       </SearchContainer>
-      <RestaurantListContainer>
-        <RestaurantInfoCard
-          name="some restaurant"
-          icon="https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png"
-          photos={["https://picsum.photos/200", "https://picsum.photos/200"]}
-          address="100 some random street"
-          isOpenNow={true}
-          rating={3}
-          isCloseTemporary={true}
-        />
-      </RestaurantListContainer>
+      <RestaurantList
+        data={restaurants}
+        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => (
+          <Spacer position="vertical" size={2}>
+            <RestaurantInfoCard restaurant={item} />
+          </Spacer>
+        )}
+      />
     </SafeArea>
   );
 }
