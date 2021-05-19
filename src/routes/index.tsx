@@ -39,9 +39,7 @@ export function Routes() {
         tabBarOptions={{
           activeTintColor: "tomato",
           inactiveTintColor: "gray",
-          style: {
-            // height: 40,
-          },
+          style: {},
         }}
       >
         <Tab.Screen name="Restaurants" component={RestaurantScreen} />

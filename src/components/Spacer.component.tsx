@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components/native";
 
 interface SpacerProps {
-  size?: number;
+  size?: 4 | 8 | 12 | 16 | 20 | 24 | 32 | 40 | 48 | 60;
   position?: "horizontal" | "vertical";
   children?: JSX.Element;
 }
