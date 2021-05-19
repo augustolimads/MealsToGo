@@ -14,20 +14,9 @@ import {
   Section,
   Icon,
 } from "./RestaurantInfoStyle.styles";
+import { RestaurantProps } from "../../../types/restaurant.interface";
 
-interface restarauntProps {
-  restaurant: {
-    name: string;
-    icon: string;
-    photos: string[];
-    address: string;
-    isOpenNow: boolean;
-    rating: number;
-    isClosedTemporarily: boolean;
-  };
-}
-
-export function RestaurantInfoCard({ restaurant }: restarauntProps) {
+export function RestaurantInfoCard({ restaurant }: RestaurantProps) {
   const {
     name = "Some Restaurant",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
