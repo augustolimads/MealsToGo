@@ -6,14 +6,11 @@ import { SafeArea } from "../../../components/SafeArea.component";
 import { useRestaurants } from "../services/restaurants.context";
 import MenuItem from "react-native-paper/lib/typescript/components/Menu/MenuItem";
 import * as S from "./Restaurant.styled";
+import Loading from "../../../components/Loading.component";
 
 export function RestaurantScreen() {
   const [search, setSearch] = useState("");
-  const { restaurants } = useRestaurants();
-
-  useEffect(() => {
-    console.log(restaurants);
-  }, [restaurants]);
+  const { restaurants, isLoading, error } = useRestaurants();
 
   return (
     <SafeArea>
@@ -24,15 +21,19 @@ export function RestaurantScreen() {
           onChangeText={setSearch}
         />
       </S.SearchContainer>
-      <S.RestaurantList
-        data={restaurants}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <Spacer position="vertical" size={2}>
-            <RestaurantInfoCard restaurant={item} />
-          </Spacer>
-        )}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <S.RestaurantList
+          data={restaurants}
+          keyExtractor={(item) => item.place_id}
+          renderItem={({ item }) => (
+            <Spacer position="vertical" size={2}>
+              <RestaurantInfoCard restaurant={item} />
+            </Spacer>
+          )}
+        />
+      )}
     </SafeArea>
   );
 }

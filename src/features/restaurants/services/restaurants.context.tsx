@@ -28,6 +28,7 @@ export const RestaurantsProvider = ({ children }) => {
     } catch (err) {
       setIsLoading(false);
     } finally {
+      setIsLoading(false);
       setRestaurants(transformed);
     }
   }, []);

@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { RestaurantScreen } from "../features/restaurants/screens/Restaurant.screen";
 import { SafeArea } from "../components/SafeArea.component";
 import { Ionicons } from "@expo/vector-icons";
+import Loading from "../components/Loading.component";
 
 const Tab = createBottomTabNavigator();
 
@@ -53,10 +54,12 @@ export function Routes() {
 const Map = () => (
   <SafeArea>
     <Text>Mapa</Text>
+    <Loading />
   </SafeArea>
 );
 const Settings = () => (
   <SafeArea>
     <Text>Settings</Text>
+    <Loading />
   </SafeArea>
 );
