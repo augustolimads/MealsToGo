@@ -9,8 +9,8 @@ import {
 } from "@expo-google-fonts/oswald";
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 import { Routes } from "./src/routes";
-import { restaurantsRequest } from "./src/services/restaurants/restaurants.service";
-import { RestaurantsContextProvider } from "./src/services/restaurants/restaurants.context";
+import { restaurantsRequest } from "./src/features/restaurants/services/restaurants.service";
+import { RestaurantsProvider } from "./src/features/restaurants/services/restaurants.context";
 
 export default function App() {
   restaurantsRequest();
@@ -29,9 +29,9 @@ export default function App() {
     <>
       <StatusBar />
       <ThemeProvider theme={theme}>
-        <RestaurantsContextProvider>
+        <RestaurantsProvider>
           <Routes />
-        </RestaurantsContextProvider>
+        </RestaurantsProvider>
       </ThemeProvider>
     </>
   );
