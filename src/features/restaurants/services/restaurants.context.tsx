@@ -5,18 +5,28 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
+import { RestaurantProps } from "../../../types/restaurant.interface";
 
 import {
   restaurantsRequest,
   restaurantsTransform,
 } from "./restaurants.service";
 
-export const RestaurantsContext = createContext({});
+interface RestaurantContextProps {
+  restaurants: RestaurantProps[];
+  isLoading: boolean;
+}
 
-export const RestaurantsProvider = ({ children }) => {
-  const [restaurants, setRestaurants] = useState([]);
+interface RestaurantProvider {
+  children: JSX.Element | JSX.Element[];
+}
+
+export const RestaurantsContext = createContext<RestaurantContextProps>({});
+
+export const RestaurantsProvider = ({ children }: RestaurantProvider) => {
+  const [restaurants, setRestaurants] = useState<RestaurantProps[]>();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
 
   const getRestaurants = useCallback(async () => {
     setIsLoading(true);
@@ -38,13 +48,13 @@ export const RestaurantsProvider = ({ children }) => {
   }, []);
 
   return (
-    <RestaurantsContext.Provider value={{ restaurants, isLoading, error }}>
+    <RestaurantsContext.Provider value={{ restaurants, isLoading }}>
       {children}
     </RestaurantsContext.Provider>
   );
 };
 
 export const useRestaurants = () => {
-  const { restaurants, isLoading, error } = useContext(RestaurantsContext);
-  return { restaurants, isLoading, error };
+  const { restaurants, isLoading } = useContext(RestaurantsContext);
+  return { restaurants, isLoading };
 };

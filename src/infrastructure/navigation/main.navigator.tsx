@@ -1,12 +1,12 @@
 import React from "react";
 import { Text } from "react-native";
 
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { RestaurantScreen } from "../features/restaurants/screens/Restaurant.screen";
-import { SafeArea } from "../components/SafeArea.component";
 import { Ionicons } from "@expo/vector-icons";
-import Loading from "../components/Loading.component";
+
+import { RestaurantScreen } from "../../features/restaurants/screens/Restaurant.screen";
+import { SafeArea } from "../../components/SafeArea.component";
+import Loading from "../../components/Loading.component";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,22 +32,20 @@ const createScreenOptions = ({ route }: RouteProps) => {
   };
 };
 
-export function Routes() {
+export function MainNavigator() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={createScreenOptions}
-        tabBarOptions={{
-          activeTintColor: "tomato",
-          inactiveTintColor: "gray",
-          style: {},
-        }}
-      >
-        <Tab.Screen name="Restaurants" component={RestaurantScreen} />
-        <Tab.Screen name="Map" component={Map} />
-        <Tab.Screen name="Settings" component={Settings} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator
+      screenOptions={createScreenOptions}
+      tabBarOptions={{
+        activeTintColor: "tomato",
+        inactiveTintColor: "gray",
+        style: {},
+      }}
+    >
+      <Tab.Screen name="Restaurants" component={RestaurantScreen} />
+      <Tab.Screen name="Map" component={Map} />
+      <Tab.Screen name="Settings" component={Settings} />
+    </Tab.Navigator>
   );
 }
 

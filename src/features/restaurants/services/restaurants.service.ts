@@ -1,5 +1,5 @@
-import camelize from "camelize";
 import api from "../../../api/restaurants.api";
+import { RestaurantProps } from "../../../types/restaurant.interface";
 
 export const restaurantsRequest = async (
   location: string = "37.7749295,-122.4194155"
@@ -18,11 +18,12 @@ export const restaurantsRequest = async (
   }
 };
 
-export const restaurantsTransform = (results) => {
+export const restaurantsTransform = (results: any) => {
   let mappedResults;
   try {
     mappedResults = results.data.results.map((restaurant) => {
       return {
+        id: restaurant.place_id,
         name: restaurant.name,
         icon: restaurant.icon,
         photos: "https://picsum.photos/200/300",
@@ -36,6 +37,6 @@ export const restaurantsTransform = (results) => {
   } catch (err) {
     console.error(err);
   } finally {
-    return mappedResults;
+    return mappedResults as RestaurantProps;
   }
 };
